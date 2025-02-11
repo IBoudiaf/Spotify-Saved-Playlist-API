@@ -12,13 +12,21 @@ print(f"Current working directory: {os.getcwd()}")
 
 # Initialize the Flask application
 app = Flask(__name__)
-app.secret_key = 'Babou'  # Secret key for session management
-CLIENT_ID = '8863c8c092a34323b81b2ed91a10c5ca'  # Spotify client ID
-CLIENT_SECRET = 'da4a66d60516460c95dcc91f38800b3a'  # Spotify client secret
+
+app.secret_key = None  # Secret key for session management
+CLIENT_ID = None# Spotify client ID
+CLIENT_SECRET = None  # Spotify client secret
+
 REDIRECT_URI = 'http://localhost:5000/callback'  # Redirect URI for Spotify authorization
 AUTH_URL = 'https://accounts.spotify.com/authorize'  # URL for Spotify authorization
 TOKEN_URL = 'https://accounts.spotify.com/api/token'  # URL to get the access token
 API_BASE_URL = 'https://api.spotify.com/v1/'  # Spotify API base URL
+
+# Check if CLIENT_ID, CLIENT_SECRET, or secret_key is missing
+if not CLIENT_ID or not CLIENT_SECRET or not app.secret_key: 
+    sys.exit("Error: Missing required credentials.")
+
+print("===== All Credentials present, starting process =====\n")#All Client credentials are present
 
 def get_access_token():
     """
